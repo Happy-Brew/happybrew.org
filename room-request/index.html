@@ -7,6 +7,7 @@
 <meta name="description" content="Rent a meeting room, the full Happy Brew venue after hours, or the venue with stage in Jacksonville, FL. Meeting rooms from $25 an hour for nonprofits. Every booking supports our mission.">
 <!-- PREVIEW ONLY: remove this robots line when the site goes live on happybrew.org -->
 <meta name="robots" content="noindex">
+<link rel="canonical" href="https://tomrossi7.github.io/happy-brew/room-request/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Happy Brew">
 <meta property="og:title" content="Rent a Space | Meeting Rooms and Private Event Venue in Jacksonville | Happy Brew">
@@ -211,6 +212,7 @@
       <p class="lede">Tell us what you’re planning. We respond to rental requests within 24 hours.</p>
     </div>
     <form class="form form--card" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="" data-subject="Room request" data-success="Possibilities are brewing! We got your request and will be in touch within 24 hours.">
+      <p class="form-note">Every field is required unless it says optional.</p>
       <div class="field-row">
         <div class="field">
           <label for="rr-first">First name</label>
@@ -256,7 +258,7 @@
         <input id="rr-size" name="group_size" type="number" min="1" max="500" inputmode="numeric">
       </div>
       <div class="field">
-        <label for="rr-message">Tell us about your event</label>
+        <label for="rr-message">Tell us about your event <span class="hint">(optional)</span></label>
         <textarea id="rr-message" name="message" rows="5"></textarea>
       </div>
       <div class="check">
@@ -280,7 +282,7 @@
         <h2 id="news-signup-title">Hear the Happy News</h2>
         <p>Join the Happy Brew family! Get updates, pop-up event invites and inspiring stories, all served straight to your inbox.</p>
       </div>
-      <form class="form" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="" data-subject="Happy News sign-up" data-success="Thank you! You're on the list for Happy News.">
+      <form class="form" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="" data-subject="Happy News sign-up" data-success="Thank you! We’ll add you to the Happy News email list.">
         <div class="signup">
           <div class="field">
             <label for="news-email">Your email address</label>

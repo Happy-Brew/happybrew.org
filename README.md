@@ -24,7 +24,9 @@ A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.
 | `happy-news/index.html` | Blog index |
 | `post/<name>/index.html` | One folder per blog post |
 | `thankyouforyourgenerosity/`, `thank-you-contact/` | Thank-you pages (the donation service may send donors to the first one) |
-| `404.html` | "Page not found" page. It also forwards old Wix addresses to the new pages. |
+| `404.html` | "Page not found" page. It also forwards old Wix addresses (such as old event links) to the new pages. |
+| `general-7/`, `contact-us/`, `book-online/` and similar | One-line redirect pages for old Wix addresses that were merged into other pages. Leave them in place. |
+| `sitemap.xml` | List of pages for search engines. Add a line when you add a page or post. |
 | `styles.css` | All styling. Colours and sizes are at the top under `:root`. |
 | `script.js` | Mobile menu, "open now" badge, forms, old-link forwarding |
 | `assets/` | Images, fonts, favicon, sharing image, menu PDF |
@@ -86,13 +88,20 @@ Edit `events/index.html`. Each event is an `<article class="event">` block. For 
 <p class="event__meta"><time datetime="2026-12-12T08:30">Saturday, December 12, 2026</time> · 8:30 to 11:00 am</p>
 ```
 
-`data-event-date` must be `YYYY-MM-DD`. When that date has passed, the page greys the date badge and adds "this date has passed" automatically, so a stale date never looks current. The home page shows the same four events in shorter form; update `index.html` too.
+`data-event-date` must be `YYYY-MM-DD`. When that date has passed, the Events page greys the date badge and adds "This date has passed" automatically, and the home page hides the event, so a stale date never looks current. The home page shows the next two events in shorter form; update `index.html` too.
+
+The Run Club button links to the contact form with a message already started. If you change the event date, update the date inside that link as well (search for `RSVP%20for`).
 
 ### Blog posts (Happy News)
 
-1. Copy an existing folder in `post/`, rename it, and edit its `index.html`: the `<title>`, the description, the `<h1>`, the author and date line, and the paragraphs inside `<div class="wrap wrap--narrow article">`.
+1. Copy an existing folder in `post/`, rename it, and edit its `index.html`:
+   - near the top: the `<title>`, the two descriptions (`name="description"` and `og:description`), `og:title`, and the folder name in the `canonical` and `og:url` lines
+   - the block that starts `<script type="application/ld+json">`: headline, date, author, image and address
+   - on the page: the `<h1>`, the author and date line, and the paragraphs inside `<div class="wrap wrap--narrow article">`
+   - at the bottom: the "Older story" link (point it at the post that used to be newest). Then open that older post and add a "Newer story" link back to the new one.
 2. Put images in `assets/img/news/`.
 3. Add a card for the post at the top of the list in `happy-news/index.html` (copy an existing `<article class="card card--link post-card">` block). The home page shows the three newest; update those in `index.html` if you want the new post featured.
+4. Add the post's address to `sitemap.xml`.
 
 ### Staff and board
 
@@ -128,12 +137,14 @@ Do this for each form you want connected. The newsletter form is in the footer o
 
 When this replaces the Wix site at happybrew.org:
 
-1. In every HTML file, delete the line `<meta name="robots" content="noindex">` and the comment above it.
-2. Replace `https://tomrossi7.github.io/happy-brew/` with `https://www.happybrew.org/` in every HTML file (it appears in the sharing tags and in the JSON-LD blocks).
-3. In the footer of every HTML file, delete the sentence that begins "This is a preview of a proposed new website".
-4. Add the custom domain in the repository's Settings → Pages, and point the domain's DNS at GitHub Pages.
-5. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working.
-6. Check that the donation service still sends donors to `/thankyouforyourgenerosity`.
+1. In every HTML file except `404.html`, the two thank-you pages and the one-line redirect pages, delete the line `<meta name="robots" content="noindex">` and the comment above it.
+2. Replace `https://tomrossi7.github.io/happy-brew/` with `https://www.happybrew.org/` in every HTML file and in `sitemap.xml` (it appears in the canonical link, the sharing tags and the JSON-LD blocks).
+3. In `404.html`, change `<base href="/happy-brew/">` to `<base href="/">`.
+4. In the footer of every HTML file, delete the sentence that begins "This is a preview of a proposed new website".
+5. Add the custom domain in the repository's Settings → Pages, and point the domain's DNS at GitHub Pages.
+6. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working. The newsletter form only emails the address to the café; connect it to your email list tool if you want sign-ups added automatically.
+7. Submit `https://www.happybrew.org/sitemap.xml` in Google Search Console.
+8. Check that the donation service still sends donors to `/thankyouforyourgenerosity`.
 
 ## Run it locally
 

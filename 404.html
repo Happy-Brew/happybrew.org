@@ -7,6 +7,8 @@
 <meta name="description" content="We could not find that page. Here are some good places to start.">
 <!-- PREVIEW ONLY: remove this robots line when the site goes live on happybrew.org -->
 <meta name="robots" content="noindex">
+<!-- Without JavaScript, fall back to this site root. Change to "/" when the site moves to its own domain. -->
+<noscript><base href="/happy-brew/"></noscript>
 <script>
 /* The 404 page can be shown at any URL depth, so work out the site root for relative links. */
 (function () {
@@ -15,6 +17,7 @@
   document.write('<base href="' + root + '">');
 })();
 </script>
+<link rel="canonical" href="https://tomrossi7.github.io/happy-brew/404.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Happy Brew">
 <meta property="og:title" content="Page Not Found | Happy Brew">
@@ -82,7 +85,7 @@
         <h2 id="news-signup-title">Hear the Happy News</h2>
         <p>Join the Happy Brew family! Get updates, pop-up event invites and inspiring stories, all served straight to your inbox.</p>
       </div>
-      <form class="form" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="" data-subject="Happy News sign-up" data-success="Thank you! You're on the list for Happy News.">
+      <form class="form" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="" data-subject="Happy News sign-up" data-success="Thank you! We’ll add you to the Happy News email list.">
         <div class="signup">
           <div class="field">
             <label for="news-email">Your email address</label>

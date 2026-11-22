@@ -112,16 +112,17 @@
       today = new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE }).format(new Date()); /* YYYY-MM-DD */
     } catch (error) { return; }
     document.querySelectorAll('[data-event-date]').forEach(function (el) {
-      if (el.getAttribute('data-event-date') < today) {
-        el.classList.add('is-past');
-        var card = el.closest('.event, .event-card');
-        var note = card && card.querySelector('[data-next-note]');
-        if (note) note.hidden = false;
-        var meta = card && card.querySelector('.event__meta');
-        if (meta && !card.querySelector('[data-next-note]')) {
-          meta.insertAdjacentHTML('beforeend', ' <span>(this date has passed; the next one is coming soon)</span>');
-        }
+      if (el.getAttribute('data-event-date') >= today) return;
+      var card = el.closest('.event, .event-card');
+      if (!card) return;
+      if (card.classList.contains('event-card')) {
+        /* Home page: simply drop events that are over */
+        card.hidden = true;
+        return;
       }
+      el.classList.add('is-past');
+      var meta = card.querySelector('.event__meta');
+      if (meta) meta.insertAdjacentHTML('beforeend', ' <span>(This date has passed. Check Instagram or call us for the next one.)</span>');
     });
   })();
 
@@ -197,6 +198,11 @@
     Array.prototype.forEach.call(select.options, function (option) {
       if (option.value.toLowerCase() === wanted.toLowerCase()) select.value = option.value;
     });
+    /* ...and start the message, for example from an event's RSVP button */
+    var message = select.form.querySelector('textarea[name="message"]');
+    var starter;
+    try { starter = new URLSearchParams(window.location.search).get('message'); } catch (error) { starter = null; }
+    if (message && starter && !message.value) message.value = starter.slice(0, 300);
   });
 
   /* ---------- Footer year ---------- */
