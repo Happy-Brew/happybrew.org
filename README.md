@@ -2,7 +2,9 @@
 
 A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.org/), the nonprofit community café at 3200 Hendricks Ave, Jacksonville, FL.
 
-- **Preview:** https://tomrossi7.github.io/happy-brew/
+- **Preview:** https://preview.happybrew.org/
+- **Repository:** https://github.com/Happy-Brew/happy-brew
+- **Design options being compared:** https://preview.happybrew.org/options/
 - **No build step and no framework.** Every page is a file you can open and edit. Push to `main` and GitHub Pages publishes it within a minute or two.
 
 > This is a proposed replacement for the current Wix site. It is marked "noindex" so search engines ignore it until it goes live. See [Going live](#going-live).
@@ -138,10 +140,10 @@ Do this for each form you want connected. The newsletter form is in the footer o
 When this replaces the Wix site at happybrew.org:
 
 1. In every HTML file except `404.html`, the two thank-you pages and the one-line redirect pages, delete the line `<meta name="robots" content="noindex">` and the comment above it.
-2. Replace `https://tomrossi7.github.io/happy-brew/` with `https://www.happybrew.org/` in every HTML file and in `sitemap.xml` (it appears in the canonical link, the sharing tags and the JSON-LD blocks).
-3. In `404.html`, change `<base href="/happy-brew/">` to `<base href="/">`.
+2. Replace `https://preview.happybrew.org/` with `https://www.happybrew.org/` in every HTML file and in `sitemap.xml` (it appears in the canonical link, the sharing tags and the JSON-LD blocks).
+3. Delete the `options/` folder once a design direction has been chosen.
 4. In the footer of every HTML file, delete the sentence that begins "This is a preview of a proposed new website".
-5. Add the custom domain in the repository's Settings → Pages, and point the domain's DNS at GitHub Pages.
+5. Change the custom domain in the repository's Settings → Pages from `preview.happybrew.org` to `www.happybrew.org` (this rewrites the `CNAME` file), and point that domain's DNS at GitHub Pages (`happy-brew.github.io`).
 6. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working. The newsletter form only emails the address to the café; connect it to your email list tool if you want sign-ups added automatically.
 7. Submit `https://www.happybrew.org/sitemap.xml` in Google Search Console.
 8. Check that the donation service still sends donors to `/thankyouforyourgenerosity`.
