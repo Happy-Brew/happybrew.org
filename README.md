@@ -3,7 +3,7 @@
 A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.org/), the nonprofit community café at 3200 Hendricks Ave, Jacksonville, FL.
 
 - **Preview:** https://preview.happybrew.org/
-- **Repository:** https://github.com/Happy-Brew/happy-brew
+- **Repository:** https://github.com/Happy-Brew/happybrew.org
 - **Design options being compared:** https://preview.happybrew.org/options/
 - **No build step and no framework.** Every page is a file you can open and edit. Push to `main` and GitHub Pages publishes it within a minute or two.
 
