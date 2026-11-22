@@ -184,6 +184,7 @@ a:hover { text-decoration-thickness: 4px; }
   text-decoration: none; white-space: nowrap;
 }
 .brand svg { width: 2.6rem; height: auto; flex: none; }
+.brand { flex: none; }
 .brand:hover svg { transform: rotate(-8deg); }
 .brand svg { transition: transform 0.2s ease; }
 
@@ -221,7 +222,7 @@ html:not(.js) .nav-toggle { display: none; }
 }
 
 /* Small screens: nav is a panel under the bar */
-@media (max-width: 68.74em) {
+@media (max-width: 65.99em) {
   .site-nav { padding: 0.25rem 0 1.25rem; border-top: 2px dashed var(--navy); }
   .js .site-nav:not(.is-open) { display: none; }
   /* Keep every link reachable when the open menu is taller than the screen */
@@ -230,8 +231,8 @@ html:not(.js) .nav-toggle { display: none; }
   .site-nav li.nav-cta { border-top: 0; padding-top: 0.9rem; }
   .site-nav .btn { width: 100%; }
 }
-/* Wide screens: nav sits in the bar */
-@media (min-width: 68.75em) {
+/* Wide screens (1024px and up): nav sits in the bar */
+@media (min-width: 66em) {
   .nav-toggle { display: none; }
   .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
   .site-nav ul { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.9rem); }
@@ -642,6 +643,7 @@ h3 { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-s
 /* Header: navy with the white script logo */
 .site-header { background: var(--navy); color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.22); }
 .site-header :focus-visible { outline-color: var(--sun); }
+.brand--wordmark { flex: none; }
 .brand--wordmark img { height: 3rem; width: auto; }
 .site-nav a { font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; }
 .site-nav a[aria-current="page"]:not(.btn), .site-nav a.is-section:not(.btn) {
@@ -651,8 +653,10 @@ h3 { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-s
 .nav-toggle { background: transparent; color: #fff; border: 2px solid #fff; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 1rem; }
 .nav-toggle[aria-expanded="true"] { background: var(--sun); color: var(--navy); border-color: var(--sun); }
 .site-nav { border-top-color: rgba(255, 255, 255, 0.35); }
-@media (max-width: 68.74em) { .site-nav li + li { border-top-color: rgba(255, 255, 255, 0.2); } }
-@media (min-width: 68.75em) { .site-nav a { font-size: 1rem; } .site-nav ul { gap: clamp(0.9rem, 1.6vw, 1.6rem); } }
+@media (max-width: 65.99em) { .site-nav li + li { border-top-color: rgba(255, 255, 255, 0.2); } }
+@media (min-width: 66em) { .site-nav a { font-size: 1rem; } .site-nav ul { gap: clamp(0.9rem, 1.6vw, 1.6rem); } }
+/* On smaller laptop windows, tighten the capitals so the whole row still fits */
+@media (min-width: 66em) and (max-width: 74em) { .site-nav a { letter-spacing: 0.05em; } .site-nav ul { gap: 0.85rem; } }
 
 /* Buttons: squared, capitals */
 .btn, .band--navy .btn, .board .btn, .site-footer .btn { border-radius: 4px; border-width: 2px; box-shadow: none; text-transform: uppercase; letter-spacing: 0.1em; font-size: 1rem; font-weight: 700; }
