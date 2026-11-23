@@ -137,6 +137,10 @@ Do this for each form you want connected. The newsletter form is in the footer o
 - **Accessibility:** base text is 18px or larger, colour contrast is at least 4.5:1, every page has a skip link, visible focus outlines and keyboard-friendly navigation. Please keep these when editing: don't put text over photos, don't use yellow text on white or cream (yellow text is only for navy backgrounds), and always write alt text.
 - Striped boxes and chips labelled **TODO** mark content the organisation still needs to supply. Search the files for `TODO` to find them.
 
+### After changing `styles.css` or `script.js`
+
+Browsers keep a copy of these two files for a while. So that returning visitors get the new version straight away, every page loads them as `styles.css?v=2` and `script.js?v=2`. When you change either file, find and replace `?v=2` with `?v=3` (and so on) across all HTML files. If you forget, nothing breaks: visitors simply see the old styling for up to ten minutes.
+
 ## Going live
 
 When this replaces the Wix site at happybrew.org:
