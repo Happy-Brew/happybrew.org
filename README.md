@@ -55,6 +55,7 @@ Edit `menu/index.html`. Each item is one line:
 - The name and price sit together inside `class="row"`. A description goes after the row, just before `</li>`: `<span class="desc">With cream cheese or butter</span>`.
 - A gluten-free item starts with `<span class="gf" aria-hidden="true">GF</span>` and ends with `<span class="vh">(gluten-free)</span>`.
 - To add or remove an item, copy or delete a whole `<li>…</li>` line.
+- The "Jump to" buttons at the top of the page link to section headings by their `id` (for example `<h3 id="smoothies">` and `<a href="#smoothies">`). If you add or rename a section, update both.
 
 Also update:
 
@@ -66,7 +67,7 @@ Also update:
 Hours appear in four places. Change all of them:
 
 1. `script.js`: the `HOURS` block at the top. This drives the "Open now" badge. Times use the 24-hour clock and `null` means closed.
-2. `visit-us/index.html`: the hours table.
+2. `visit-us/index.html`: the line under the heading at the top of the page, and the hours table.
 3. The footer in every HTML file (search for `6:30 am to 4:00 pm`).
 4. `index.html`: the facts strip under the hero, and the JSON-LD block near the top of the file (`openingHoursSpecification`), which tells Google the hours.
 
@@ -102,7 +103,7 @@ The Run Club button links to the contact form with a message already started. If
    - on the page: the `<h1>`, the author and date line, and the paragraphs inside `<div class="wrap wrap--narrow article">`
    - at the bottom: the "Older story" link (point it at the post that used to be newest). Then open that older post and add a "Newer story" link back to the new one.
 2. Put images in `assets/img/news/`.
-3. Add a card for the post at the top of the list in `happy-news/index.html` (copy an existing `<article class="card card--link post-card">` block). The home page shows the three newest; update those in `index.html` if you want the new post featured.
+3. Add a card for the post at the top of the list in `happy-news/index.html` (copy an existing `<article class="card card--link post-card">` block). Card photos are cropped to a wide window; if a face near the top of a tall photo gets cut off, add `class="focus-top"` to that card's `<img>`. The home page shows the three newest; update those in `index.html` if you want the new post featured.
 4. Add the post's address to `sitemap.xml`.
 
 ### Staff and board

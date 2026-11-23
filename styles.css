@@ -121,7 +121,7 @@ a:hover { text-decoration-thickness: 4px; }
 .wrap--narrow { max-width: 46rem; }
 
 .lede { font-size: clamp(1.15rem, 1.05rem + 0.6vw, 1.4rem); line-height: 1.5; }
-.small { font-size: 0.889rem; line-height: 1.5; } /* 16px: legal small print only */
+.small { font-size: 1rem; line-height: 1.5; } /* legal small print: still 18px, the smallest size on the site */
 .center { text-align: center; }
 .eyebrow {
   font-family: var(--font-display); font-weight: 600;
@@ -512,7 +512,11 @@ figure.photo figcaption, .caption { padding: 0.7rem 1rem; background: var(--pape
 .person .role { font-weight: 700; margin: 0; }
 .person h3 { overflow-wrap: normal; hyphens: none; }
 @media (max-width: 24em) { .person__head { gap: 0.8rem; } .person__head img { width: 4.5rem; height: 4.5rem; } }
-@media (min-width: 62em) { .people { grid-template-columns: repeat(2, 1fr); align-items: start; } }
+/* Wide screens: two columns that pack tightly, so short and long biographies don't leave gaps */
+@media (min-width: 62em) {
+  .people { display: block; columns: 2; column-gap: clamp(1.1rem, 2.5vw, 1.75rem); }
+  .people > li { break-inside: avoid; margin: 0 0 clamp(1.1rem, 2.5vw, 1.75rem); }
+}
 
 /* ---------- News ---------- */
 .post-card { padding: 0; overflow: hidden; gap: 0; }
@@ -642,7 +646,11 @@ h3 { font-weight: 800; letter-spacing: -0.005em; }
 .nav-toggle { background: transparent; color: #fff; border: 2px solid #fff; border-radius: 4px; font-weight: 700; font-size: 1rem; }
 .nav-toggle[aria-expanded="true"] { background: var(--sun); color: var(--navy); border-color: var(--sun); }
 .site-nav { border-top-color: rgba(255, 255, 255, 0.35); }
-@media (max-width: 59.99em) { .site-nav li + li { border-top-color: rgba(255, 255, 255, 0.2); } }
+@media (max-width: 59.99em) {
+  .site-nav li + li { border-top-color: rgba(255, 255, 255, 0.2); }
+  /* Room around the links so keyboard focus outlines are not cut off by the scrolling panel */
+  .site-nav { padding: 0.5rem 8px 1.25rem; margin-inline: -8px; }
+}
 
 /* Buttons: squared, flat */
 .btn, .band--navy .btn, .board .btn, .site-footer .btn { border-radius: 4px; border-width: 2px; box-shadow: none; font-size: 1rem; font-weight: 700; letter-spacing: 0.01em; }
@@ -674,8 +682,21 @@ figure.photo figcaption { border-top: 0; }
 .status[data-state="open"] .status__dot { background: #6fdc9a; box-shadow: 0 0 0 3px rgba(111, 220, 154, 0.25); }
 .status[data-state="closed"] .status__dot { background: #ff9d94; }
 .status__dot { background: #fff; }
-/* A cut-out photo of people in dark clothes needs a light panel behind it on navy */
-.cutout--panel { background: var(--sun); border-radius: var(--radius); padding: 1rem 1rem 0; }
+/* A cut-out photo sits on a light panel with the same yellow offset as the other page-top photos */
+.cutout--panel { background: var(--cream); border-radius: var(--radius); padding: 1rem 1rem 0; box-shadow: 14px 14px 0 var(--sun); margin-bottom: 14px; }
+
+/* Practical facts in the opening section of the Visit page */
+.hero-facts { list-style: none; margin: 1.25rem 0 1.5rem; padding: 0; display: grid; gap: 0.6rem; font-weight: 600; }
+.hero-facts li { display: flex; gap: 0.7rem; align-items: flex-start; margin: 0; }
+.hero-facts .icon { width: 1.6rem; height: 1.6rem; margin-top: 0.15rem; color: var(--sun); }
+
+/* "Jump to" links at the top of the menu */
+.jump { margin-bottom: clamp(2rem, 5vw, 3rem); }
+.jump__label { margin: 0 0 0.6rem; font-weight: 700; font-size: 1rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.jump ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.jump li { margin: 0; }
+.jump a { display: inline-flex; align-items: center; min-height: 2.9rem; padding: 0.4rem 1rem; background: var(--paper); border: 2px solid var(--navy); border-radius: var(--radius-sm); font-weight: 700; text-decoration: none; }
+.jump a:hover { background: var(--navy); color: #fff; }
 
 /* Bands */
 .band--sky { background: var(--sun); }
@@ -688,9 +709,15 @@ figure.photo figcaption { border-top: 0; }
 .card { border: 0; border-top: 6px solid var(--navy); border-radius: var(--radius); }
 .card--link:hover { transform: none; box-shadow: 0 0 0 2px var(--navy); }
 .card--link :is(h2, h3) a::after { border-radius: var(--radius); }
+/* A linked card title always looks like a link, not only on hover */
+.card :is(h2, h3) a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.16em; }
+.card :is(h2, h3) a:hover { text-decoration-color: currentColor; text-decoration-thickness: 4px; }
 .card--pale { background: var(--paper); box-shadow: 0 0 0 1px rgba(13, 50, 86, 0.15); }
 .post-card { border-top: 0; box-shadow: 0 0 0 1px rgba(13, 50, 86, 0.18); }
 .post-card img { border-bottom: 0; }
+.post-card img.focus-top { object-position: 50% 0; }
+/* Story titles look the same on the home page (h3) and the news page (h2) */
+.post-card :is(h2, h3) { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.3rem, 1.2rem + 0.5vw, 1.55rem); letter-spacing: -0.01em; line-height: 1.2; }
 .event-card { border-top: 0; border-left: 6px solid var(--sun); box-shadow: 0 0 0 1px rgba(13, 50, 86, 0.15); }
 .event__date { transform: none; background: var(--navy); color: #fff; border: 0; border-radius: var(--radius-sm); }
 .event__date .day { font-weight: 800; }
