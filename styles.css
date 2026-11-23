@@ -4,9 +4,9 @@
    ========================================================================== */
 
 @font-face {
-  font-family: "Fredoka";
-  src: url("assets/fonts/fredoka-latin.woff2") format("woff2");
-  font-weight: 500 700;
+  font-family: "Fraunces";
+  src: url("assets/fonts/fraunces-latin.woff2") format("woff2");
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -25,17 +25,17 @@
   --sun-pale: #fff0c2;
   --navy: #0d3256;       /* logo navy: all text and outlines */
   --navy-deep: #082340;
-  --cream: #fff9ec;      /* page background */
+  --cream: #fffaf0;      /* page background */
   --paper: #ffffff;
   --sky: #d7ebf7;        /* from the butterfly mural */
   --blue: #1b6498;
 
-  --font-display: "Fredoka", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif; /* main headings only */
   --font-body: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
 
-  --line: 3px;                     /* outline thickness used everywhere */
-  --radius: 28px;
-  --radius-sm: 16px;
+  --line: 2px;                     /* outline thickness used everywhere */
+  --radius: 6px;
+  --radius-sm: 4px;
   --wrap: 72rem;
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --section: clamp(3.5rem, 8vw, 6.5rem);
@@ -222,7 +222,7 @@ html:not(.js) .nav-toggle { display: none; }
 }
 
 /* Small screens: nav is a panel under the bar */
-@media (max-width: 63.99em) {
+@media (max-width: 59.99em) {
   .site-nav { padding: 0.25rem 0 1.25rem; border-top: 2px dashed var(--navy); }
   .js .site-nav:not(.is-open) { display: none; }
   /* Keep every link reachable when the open menu is taller than the screen */
@@ -231,8 +231,8 @@ html:not(.js) .nav-toggle { display: none; }
   .site-nav li.nav-cta { border-top: 0; padding-top: 0.9rem; }
   .site-nav .btn { width: 100%; }
 }
-/* Wide screens (1024px and up): nav sits in the bar */
-@media (min-width: 64em) {
+/* Wide screens (960px and up): nav sits in the bar */
+@media (min-width: 60em) {
   .nav-toggle { display: none; }
   .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
   .site-nav ul { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.9rem); }
@@ -602,3 +602,112 @@ figure.photo figcaption, .caption { padding: 0.7rem 1rem; background: var(--pape
   .site-header, .pre-footer, .site-footer, .skip-link { display: none; }
   body { background: #fff; }
 }
+
+
+/* ==========================================================================
+   LOOK AND FEEL
+   Navy leads, like the café's own menu boards and aprons. The script logo is
+   white, yellow is the highlight, main headings are a serif in ordinary
+   sentence case and everything else is the body typeface.
+   These rules restyle the building blocks defined above.
+   ========================================================================== */
+/* Menu rows: name and price on one line, description underneath */
+.prices li { display: block; }
+.prices .row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; }
+.prices .desc { margin-top: 0.1rem; }
+
+/* Type: serif for h1 and h2, body typeface for everything else */
+h1, h2 { font-weight: 500; letter-spacing: -0.02em; line-height: 1.06; }
+h1 { font-size: clamp(2.5rem, 1.5rem + 4.6vw, 4.6rem); }
+h2 { font-size: clamp(1.9rem, 1.3rem + 2.6vw, 3rem); }
+/* Narrowest phones: keep one-word-wide headlines such as "possABILITIES." inside the screen */
+@media (max-width: 22em) { .page-hero h1 { font-size: 1.8rem; } }
+h3, h4, .eyebrow, .btn, .arrow-link, .site-nav a, .nav-toggle, .facts strong, .stat p, .rate, .prices .price, .gf, .event__date, .faq summary, .timeline strong, .contact-list strong { font-family: var(--font-body); }
+h3 { font-weight: 800; letter-spacing: -0.005em; }
+.eyebrow { font-weight: 700; font-size: 1rem; letter-spacing: 0.16em; }
+.arrow-link { font-weight: 700; }
+.facts strong, .timeline strong, .contact-list strong { font-weight: 800; }
+.smile-under { background: none; padding-bottom: 0; color: var(--sun); }
+.todo-block { font-family: var(--font-body); font-weight: 700; }
+
+/* Header: navy with the white script logo */
+.site-header { background: var(--navy); color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.22); }
+.site-header :focus-visible { outline-color: var(--sun); }
+.brand img { height: 3rem; width: auto; }
+.site-nav a { font-weight: 600; font-size: 1rem; }
+.site-nav a[aria-current="page"]:not(.btn), .site-nav a.is-section:not(.btn) {
+  background: none; color: var(--sun); font-weight: 700;
+  text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.45em;
+}
+.nav-toggle { background: transparent; color: #fff; border: 2px solid #fff; border-radius: 4px; font-weight: 700; font-size: 1rem; }
+.nav-toggle[aria-expanded="true"] { background: var(--sun); color: var(--navy); border-color: var(--sun); }
+.site-nav { border-top-color: rgba(255, 255, 255, 0.35); }
+@media (max-width: 59.99em) { .site-nav li + li { border-top-color: rgba(255, 255, 255, 0.2); } }
+
+/* Buttons: squared, flat */
+.btn, .band--navy .btn, .board .btn, .site-footer .btn { border-radius: 4px; border-width: 2px; box-shadow: none; font-size: 1rem; font-weight: 700; letter-spacing: 0.01em; }
+.btn:hover { transform: none; box-shadow: none; background: var(--navy-deep); }
+.btn--sun:hover, .hero .btn:hover, .page-hero .btn:hover, .band--navy .btn:hover { background: var(--sun-soft); }
+.btn:active { transform: translateY(1px); }
+.hero .btn, .page-hero .btn, .band--navy .btn:not(.btn--paper) { background: var(--sun); color: var(--navy); border-color: var(--sun); }
+.form--card .btn, .band--navy .form--card .btn { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+/* No curves or tilts */
+.band--smile, .band--frown-top, .pre-footer { border-radius: 0; }
+.band--smile { padding-bottom: var(--section); }
+.photo { border: 0; border-radius: var(--radius); }
+.photo--tilt-l, .photo--tilt-r { transform: none; }
+figure.photo figcaption { border-top: 0; }
+
+/* Hero */
+.hero, .page-hero { background: var(--navy); color: #fff; }
+.hero { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3rem, 7vw, 5rem); }
+.page-hero { padding-block: clamp(2.5rem, 6vw, 4rem) clamp(3rem, 7vw, 4.5rem); }
+.hero :focus-visible, .page-hero :focus-visible { outline-color: var(--sun); }
+.hero .eyebrow, .page-hero .eyebrow { color: var(--sun); }
+.hero__photos { padding: 0 14px 14px 0; }
+.hero__photos .photo--main, .page-hero .photo { transform: none; overflow: visible; background: none; box-shadow: 14px 14px 0 var(--sun); }
+.hero__photos .photo--main img, .page-hero .photo img { border-radius: var(--radius); }
+.page-hero__grid > figure { margin: 0 14px 14px 0; }
+.hero__photos .photo--snap, .hero__stamp { display: none; }
+.status { background: transparent; color: #fff; border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 4px; }
+.status[data-state="open"] .status__dot { background: #6fdc9a; box-shadow: 0 0 0 3px rgba(111, 220, 154, 0.25); }
+.status[data-state="closed"] .status__dot { background: #ff9d94; }
+.status__dot { background: #fff; }
+/* A cut-out photo of people in dark clothes needs a light panel behind it on navy */
+.cutout--panel { background: var(--sun); border-radius: var(--radius); padding: 1rem 1rem 0; }
+
+/* Bands */
+.band--sky { background: var(--sun); }
+.stat__num { font-weight: 500; }
+.stat p { font-weight: 600; }
+.quote blockquote { font-weight: 500; max-width: 24ch; }
+.quote svg { display: none; }
+
+/* Cards */
+.card { border: 0; border-top: 6px solid var(--navy); border-radius: var(--radius); }
+.card--link:hover { transform: none; box-shadow: 0 0 0 2px var(--navy); }
+.card--link :is(h2, h3) a::after { border-radius: var(--radius); }
+.card--pale { background: var(--paper); box-shadow: 0 0 0 1px rgba(13, 50, 86, 0.15); }
+.post-card { border-top: 0; box-shadow: 0 0 0 1px rgba(13, 50, 86, 0.18); }
+.post-card img { border-bottom: 0; }
+.event-card { border-top: 0; border-left: 6px solid var(--sun); box-shadow: 0 0 0 1px rgba(13, 50, 86, 0.15); }
+.event__date { transform: none; background: var(--navy); color: #fff; border: 0; border-radius: var(--radius-sm); }
+.event__date .day { font-weight: 800; }
+.event__date.is-past { background: var(--paper); color: var(--navy); box-shadow: inset 0 0 0 2px rgba(13, 50, 86, 0.4); }
+.ticks li::before { border-radius: 2px; border-width: 0; }
+.gf { font-weight: 800; }
+
+/* The menu board itself */
+.board { border-radius: var(--radius); }
+.board h2 { color: #fff; }
+.board h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.7rem; letter-spacing: -0.01em; color: var(--sun); margin-bottom: 0.4rem; }
+.board .eyebrow { color: var(--sun); }
+.prices li { border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+.prices .item { font-weight: 700; }
+.prices .desc { opacity: 1; }
+.prices .price { color: #fff; font-weight: 700; }
+
+/* Footer */
+.field input, .field select, .field textarea { border-width: 2px; border-radius: 4px; }
+.faq details, .faq summary { border-radius: var(--radius-sm); }

@@ -19,12 +19,12 @@
 <meta property="og:image:alt" content="Happy Brew Coffee Shop: we brew possABILITIES. A nonprofit community café in Jacksonville, Florida.">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#fab300">
+<meta name="theme-color" content="#0d3256">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="assets/favicon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preload" href="assets/fonts/fredoka-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/atkinson-hyperlegible-next-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script>document.documentElement.className += ' js';</script>
@@ -129,7 +129,7 @@
 <header class="site-header" id="top">
   <div class="wrap">
     <div class="site-header__bar">
-      <a class="brand" href="./" aria-label="Happy Brew home"><svg viewBox="0 0 690 581" aria-hidden="true" focusable="false"><g fill="currentColor"><ellipse cx="208" cy="163" rx="38" ry="83" transform="rotate(11 208 163)"/><ellipse cx="454" cy="186" rx="43" ry="89" transform="rotate(8 454 186)"/></g><path d="M30 186C52 400 215 552 345 548C478 544 618 396 664 160" fill="none" stroke="currentColor" stroke-width="54" stroke-linecap="round"/></svg><span>Happy Brew</span></a>
+      <a class="brand" href="./" aria-label="Happy Brew home"><img src="assets/img/wordmark-white.png" alt="" width="560" height="324"></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
         <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.800" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.800" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -159,7 +159,7 @@
     </div>
     <div class="hero__photos">
       <figure class="photo photo--main photo--wide">
-        <img src="assets/img/crew-cafe-group-720.webp" srcset="assets/img/crew-cafe-group-720.webp 720w, assets/img/crew-cafe-group-1440.webp 1440w" sizes="(min-width: 56em) 36rem, 92vw" alt="Eight members of the Happy Brew crew in yellow shirts and navy aprons, smiling with their arms around each other inside the café." width="1440" height="960" fetchpriority="high">
+        <img src="assets/img/crew-cafe-group-720.webp" srcset="assets/img/crew-cafe-group-720.webp 720w, assets/img/crew-cafe-group-1440.webp 1440w, assets/img/crew-cafe-group-2000.webp 2000w" sizes="(min-width: 56em) 36rem, 92vw" alt="Eight members of the Happy Brew crew in yellow shirts and navy aprons, smiling with their arms around each other inside the café." width="2000" height="1334" fetchpriority="high">
       </figure>
       <figure class="photo photo--snap photo--wide">
         <img src="assets/img/crew-lift-720.webp" srcset="assets/img/crew-lift-720.webp 720w, assets/img/crew-lift-1440.webp 1440w" sizes="(min-width: 56em) 17rem, 44vw" alt="Three crew members lifting a laughing coworker off the ground." width="1440" height="960" loading="lazy" decoding="async">
@@ -255,9 +255,9 @@
           <p class="btn-row" style="margin-top: 1.5rem"><a class="btn btn--sun" href="menu/">See the full menu</a></p>
         </div>
         <ul class="prices">
-          <li><span class="item">Happy Brew Latte <span class="desc">Cinnamon + brown sugar. Hot, iced or frozen.</span></span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></li>
-          <li><span class="item">Campfire Latte <span class="desc">Mocha + toasted marshmallow, whipped cream and grahams.</span></span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></li>
-          <li><span class="item">Caleb’s Cookies <span class="desc">Gourmet cookies founded and made by Caleb Prewitt.</span></span><span class="price">2 for $4</span></li>
+          <li><span class="row"><span class="item">Happy Brew Latte</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span><span class="desc">Cinnamon + brown sugar. Hot, iced or frozen.</span></li>
+          <li><span class="row"><span class="item">Campfire Latte</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span><span class="desc">Mocha + toasted marshmallow, whipped cream and grahams.</span></li>
+          <li><span class="row"><span class="item">Caleb’s Cookies</span><span class="price">2 for $4</span></span><span class="desc">Gourmet cookies founded and made by Caleb Prewitt.</span></li>
         </ul>
       </div>
     </div>
@@ -339,7 +339,7 @@
 <section class="band" aria-labelledby="together-title">
   <div class="wrap">
     <figure class="photo" style="margin-bottom: clamp(2rem, 5vw, 3rem)">
-      <img src="assets/img/crew-mural-720.webp" srcset="assets/img/crew-mural-720.webp 720w, assets/img/crew-mural-1440.webp 1440w" sizes="(min-width: 72rem) 68rem, 92vw" alt="The whole Happy Brew team, about thirty people in yellow and navy shirts, gathered in front of a large blue butterfly mural." width="1440" height="960" loading="lazy" decoding="async">
+      <img src="assets/img/crew-mural-720.webp" srcset="assets/img/crew-mural-720.webp 720w, assets/img/crew-mural-1440.webp 1440w, assets/img/crew-mural-2000.webp 2000w" sizes="(min-width: 72rem) 68rem, 92vw" alt="The whole Happy Brew team, about thirty people in yellow and navy shirts, gathered in front of a large blue butterfly mural." width="2000" height="1334" loading="lazy" decoding="async">
     </figure>
     <div class="band-head center">
       <h2 id="together-title">Together we can build a community where people of all abilities work, connect and belong.</h2>

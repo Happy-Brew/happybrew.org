@@ -4,7 +4,7 @@ A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.
 
 - **Preview:** https://preview.happybrew.org/
 - **Repository:** https://github.com/Happy-Brew/happybrew.org
-- **Design options being compared:** https://preview.happybrew.org/options/
+- **Earlier design options (kept for comparison until the look is signed off):** https://preview.happybrew.org/options/
 - **No build step and no framework.** Every page is a file you can open and edit. Push to `main` and GitHub Pages publishes it within a minute or two.
 
 > This is a proposed replacement for the current Wix site. It is marked "noindex" so search engines ignore it until it goes live. See [Going live](#going-live).
@@ -46,13 +46,13 @@ Open the page's `index.html` in any text editor, change the words between the ta
 Edit `menu/index.html`. Each item is one line:
 
 ```html
-<li><span class="item">Latte</span><span class="price"><span class="vh">Regular </span>$5.50 <span aria-hidden="true">/</span><span class="vh"> large</span> $6.50</span></li>
+<li><span class="row"><span class="item">Latte</span><span class="price"><span class="vh">Regular </span>$5.50 <span aria-hidden="true">/</span><span class="vh"> large</span> $6.50</span></span></li>
 ```
 
 - Change the name inside `class="item"` and the prices inside `class="price"`.
 - The `vh` spans are read aloud by screen readers ("Regular $5.50, large $6.50"). Keep them.
 - An item with one price: `<span class="price">$4</span>`.
-- A description under the name: `<span class="item">Bagel <span class="desc">With cream cheese or butter</span></span>`.
+- The name and price sit together inside `class="row"`. A description goes after the row, just before `</li>`: `<span class="desc">With cream cheese or butter</span>`.
 - A gluten-free item starts with `<span class="gf" aria-hidden="true">GF</span>` and ends with `<span class="vh">(gluten-free)</span>`.
 - To add or remove an item, copy or delete a whole `<li>…</li>` line.
 
@@ -130,9 +130,10 @@ Do this for each form you want connected. The newsletter form is in the footer o
 
 ## Design notes
 
-- **Colours** come from the Happy Brew logo and crew shirts: sunflower `#fab300`, navy `#0d3256`, cream `#fff9ec`. Change them once at the top of `styles.css`.
-- **Fonts** are self-hosted in `assets/fonts/`: Fredoka for headings and Atkinson Hyperlegible Next for text. Atkinson Hyperlegible was designed by the Braille Institute for readers with low vision. Both are free under the SIL Open Font License.
-- **Accessibility:** base text is 18px or larger, colour contrast is at least 4.5:1, every page has a skip link, visible focus outlines and keyboard-friendly navigation. Please keep these when editing: don't put text over photos, don't use yellow text on white, and always write alt text.
+- **Colours** come from the Happy Brew logo and crew shirts: sunflower `#fab300`, navy `#0d3256`, cream `#fffaf0`. Change them once at the top of `styles.css`.
+- **Look and feel:** navy leads, like the café's own menu boards and aprons. The header and the top of every page are navy with the white script logo, yellow is the highlight, and corners are nearly square. The rules for this are grouped under the heading "LOOK AND FEEL" near the end of `styles.css`.
+- **Fonts** are self-hosted in `assets/fonts/`: Fraunces (a serif) for main headings and Atkinson Hyperlegible Next for everything else. Atkinson Hyperlegible was designed by the Braille Institute for readers with low vision. Both are free under the SIL Open Font License.
+- **Accessibility:** base text is 18px or larger, colour contrast is at least 4.5:1, every page has a skip link, visible focus outlines and keyboard-friendly navigation. Please keep these when editing: don't put text over photos, don't use yellow text on white or cream (yellow text is only for navy backgrounds), and always write alt text.
 - Striped boxes and chips labelled **TODO** mark content the organisation still needs to supply. Search the files for `TODO` to find them.
 
 ## Going live
@@ -141,7 +142,7 @@ When this replaces the Wix site at happybrew.org:
 
 1. In every HTML file except `404.html`, the two thank-you pages and the one-line redirect pages, delete the line `<meta name="robots" content="noindex">` and the comment above it.
 2. Replace `https://preview.happybrew.org/` with `https://www.happybrew.org/` in every HTML file and in `sitemap.xml` (it appears in the canonical link, the sharing tags and the JSON-LD blocks).
-3. Delete the `options/` folder once a design direction has been chosen.
+3. Delete the `options/` folder (the earlier design options), plus `assets/img/options/` and the two fonts only those pages use: `assets/fonts/fredoka-latin.woff2` and `assets/fonts/jost-latin.woff2`.
 4. In the footer of every HTML file, delete the sentence that begins "This is a preview of a proposed new website".
 5. Change the custom domain in the repository's Settings → Pages from `preview.happybrew.org` to `www.happybrew.org` (this rewrites the `CNAME` file), and point that domain's DNS at GitHub Pages (`happy-brew.github.io`).
 6. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working. The newsletter form only emails the address to the café; connect it to your email list tool if you want sign-ups added automatically.
@@ -158,4 +159,4 @@ Then open http://localhost:8000/.
 
 ## Credits
 
-Website content and photographs © Happy Brew Inc. Fonts: Fredoka and Atkinson Hyperlegible Next, SIL Open Font License 1.1.
+Website content and photographs © Happy Brew Inc. Fonts: Fraunces and Atkinson Hyperlegible Next, SIL Open Font License 1.1.
