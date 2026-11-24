@@ -4,7 +4,6 @@ A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.
 
 - **Preview:** https://preview.happybrew.org/
 - **Repository:** https://github.com/Happy-Brew/happybrew.org
-- **Earlier design options (kept for comparison until the look is signed off):** https://preview.happybrew.org/options/
 - **No build step and no framework.** Every page is a file you can open and edit. Push to `main` and GitHub Pages publishes it within a minute or two.
 
 > This is a proposed replacement for the current Wix site. It is marked "noindex" so search engines ignore it until it goes live. See [Going live](#going-live).
@@ -147,12 +146,11 @@ When this replaces the Wix site at happybrew.org:
 
 1. In every HTML file except `404.html`, the two thank-you pages and the one-line redirect pages, delete the line `<meta name="robots" content="noindex">` and the comment above it.
 2. Replace `https://preview.happybrew.org/` with `https://www.happybrew.org/` in every HTML file and in `sitemap.xml` (it appears in the canonical link, the sharing tags and the JSON-LD blocks).
-3. Delete the `options/` folder (the earlier design options), plus `assets/img/options/` and the two fonts only those pages use: `assets/fonts/fredoka-latin.woff2` and `assets/fonts/jost-latin.woff2`.
-4. In the footer of every HTML file, delete the sentence that begins "This is a preview of a proposed new website".
-5. Change the custom domain in the repository's Settings → Pages from `preview.happybrew.org` to `www.happybrew.org` (this rewrites the `CNAME` file), and point that domain's DNS at GitHub Pages (`happy-brew.github.io`).
-6. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working. The newsletter form only emails the address to the café; connect it to your email list tool if you want sign-ups added automatically.
-7. Submit `https://www.happybrew.org/sitemap.xml` in Google Search Console.
-8. Check that the donation service still sends donors to `/thankyouforyourgenerosity`.
+3. In the footer of every HTML file, delete the sentence that begins "This is a preview of a proposed new website".
+4. Change the custom domain in the repository's Settings → Pages from `preview.happybrew.org` to `www.happybrew.org` (this rewrites the `CNAME` file), and point that domain's DNS at GitHub Pages (`happy-brew.github.io`).
+5. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working. The newsletter form only emails the address to the café; connect it to your email list tool if you want sign-ups added automatically.
+6. Submit `https://www.happybrew.org/sitemap.xml` in Google Search Console.
+7. Check that the donation service still sends donors to `/thankyouforyourgenerosity`.
 
 ## Run it locally
 
