@@ -552,7 +552,8 @@ figure.photo figcaption, .caption { padding: 0.7rem 1rem; background: var(--pape
 .check input { flex: none; width: 1.6rem; height: 1.6rem; margin: 0.15rem 0 0; accent-color: var(--navy); }
 .form-status { margin: 0; padding: 0.9rem 1.1rem; background: var(--sun-pale); border: 2px solid var(--navy); border-radius: var(--radius-sm); font-weight: 600; }
 .form-note { margin: 0; }
-.form-status:empty { display: none; }
+/* Empty: out of sight but still in the page, so screen readers announce the message when it arrives */
+.form-status:empty { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); }
 .form-status[data-kind="error"] { background: #fde7e5; }
 .hp { position: absolute; left: -9999px; }
 

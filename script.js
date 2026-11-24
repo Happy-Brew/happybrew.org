@@ -187,21 +187,32 @@
       showStatus(form, 'Sending…');
       var data = new FormData(form);
       data.append('_subject', subject);
-      fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      var request = { method: 'POST', body: data, headers: { Accept: 'application/json' } };
+      var timer = null;
+      if (window.AbortController) {
+        /* Give up after 45 seconds rather than leave "Sending…" on screen for ever */
+        var stopper = new AbortController();
+        request.signal = stopper.signal;
+        timer = window.setTimeout(function () { stopper.abort(); }, 45000);
+      }
+      fetch(endpoint, request)
         .then(function (response) {
           if (!response.ok) throw new Error('Request failed');
-          return response.json().catch(function () { return {}; });
+          return response.json(); /* a reply we cannot read is not a confirmed sign-up */
         })
         .then(function (result) {
           /* Some services always answer "200 OK" and report a problem in the reply itself */
-          if (result && result.ok === false) throw new Error('Request refused');
+          if (!result || typeof result !== 'object' || result.ok === false) throw new Error('Request refused');
           form.reset();
           showStatus(form, success, 'success');
         })
         .catch(function () {
           showStatus(form, 'Sorry, that did not send. Please try again, or email us at ' + CONTACT_EMAIL + '.', 'error');
         })
-        .then(function () { if (button) button.disabled = false; });
+        .then(function () {
+          if (timer) window.clearTimeout(timer);
+          if (button) button.disabled = false;
+        });
     });
   });
 

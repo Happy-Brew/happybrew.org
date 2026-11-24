@@ -31,7 +31,7 @@ A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.
 | `styles.css` | All styling. Colours and sizes are at the top under `:root`. |
 | `script.js` | Mobile menu, "open now" badge, forms, old-link forwarding |
 | `assets/` | Images, fonts, favicon, sharing image, menu PDF |
-| `integrations/sign-ups.gs` | Script for a Google Sheet that receives the Art Club sign-up form (see [Forms](#forms)) |
+| `integrations/sign-ups.gs` | Script that runs inside a Google Sheet and receives website forms, starting with the Art Club sign-up (see [Forms](#forms)) |
 
 Page addresses match the old Wix site (`/about-us`, `/the-crew`, `/room-request` and so on) so existing links keep working.
 
@@ -122,40 +122,72 @@ There are four forms: the newsletter sign-up in the footer of every page, the co
 
 Each `<form>` tag has `data-endpoint=""`.
 
-- **While it is empty**, submitting the form opens the visitor's email app with a message to `info@happybrew.org` already filled in.
-- **To have forms send directly**, create a form at [Formspree](https://formspree.io/) and paste its URL in:
+- **While it is empty**, submitting the form opens the visitor's email app with a message to `info@happybrew.org` already filled in. That is how the newsletter, contact and room request forms work today.
+- **The Art Club form is connected** to a Google Sheet and Square (see the next section). The other forms can be sent to the same Sheet.
+- **To have a form send somewhere else**, create a form at [Formspree](https://formspree.io/) and paste its URL in:
 
 ```html
 <form ... data-endpoint="https://formspree.io/f/abcdwxyz" ...>
 ```
 
-Do this for each form you want connected. The newsletter form is in the footer of every HTML file, so use find and replace for that one. You can use one Formspree form for everything or a separate one per form.
+Do this for each form you want connected. The newsletter form is in the footer of every HTML file, so use find and replace for that one. You can use one Formspree form for everything or a separate one per form. Whatever service you use must answer in JSON; the site treats any other reply as "did not send".
 
-### Art Club sign-ups: Google Sheet and Square
+### Sign-ups: Google Sheet and Square
 
-The Art Club form on `events/` is built to send to a small script that lives inside a Google Sheet you own. The script is in this repository at `integrations/sign-ups.gs`. For every sign-up it:
+The Art Club form on `events/` sends to a small script that lives inside a Google Sheet. The script is in this repository at `integrations/sign-ups.gs`. For every sign-up it:
 
-- adds a row to the Sheet (always);
+- adds a row to the Sheet;
 - adds the person to the Square customer directory, in a customer group called "Art Club", but only if they ticked "send me Happy Brew news" (so the café can email just that group);
 - optionally emails the café.
 
-To set it up (about ten minutes, once):
+**This is already set up.** The Sheet is called "Happy Brew website sign-ups". The script was pasted into it and published on 24 November 2026, and the Art Club form's `data-endpoint` holds its web address. People added to Square this way were checked on that date: they appear in the "Art Club" group and in Square's "Email Subscribers" group.
 
-1. In the café's Google account, create a Google Sheet, for example "Happy Brew website sign-ups".
+The copy of the script in this repository is the reference copy. The one that runs is the one inside the Sheet. If you change one, change the other (see "Changing the script" below).
+
+#### It takes any form and any fields
+
+- **Fields.** Every field a form sends gets its own column, added the first time that field arrives. Add a field to a form in the HTML and a new column appears with the next sign-up, named after the field (`t_shirt_size` becomes "T shirt size"). Remove a field and its column simply stays empty from then on.
+- **Other forms.** To save another form in the same Sheet, do two things. Add an empty tab to the Sheet with exactly the form's name (its `data-subject` in the HTML, for example `Room request`). Then paste the same web address into that form's `data-endpoint`. The script itself does not change. A form with no tab of its name is refused; that is what stops strangers creating tabs.
+- **Email news.** In any form, a tick box named `news_opt_in` with the value `yes` adds the person to Square (to the "Website sign-ups" group unless the script names another for that form). A form with a field named `email` must be given a real-looking address.
+- **Optional tidying.** The `FORMS` list at the top of the script gives a form friendlier column headings, its own Square group, and a tab the script creates by itself. Art Club is listed there. Other forms work without being listed.
+
+#### Working in the Sheet
+
+- You can sort, filter, add your own columns, and move whole columns around. The script finds each column by its heading.
+- **Do not rename or clear a heading in row 1.** The script would no longer recognise the column and would start a new one with the old name.
+- Rows are yours to edit or delete.
+- Anyone who can edit the Sheet can also open the script and see the Square access token. Give edit access only to people you would trust with the Square account; give everyone else view access.
+
+#### Limits built into the script
+
+The form's address is public, like any form's, so the script protects itself:
+
+- at most 300 sign-ups a day across all forms, and at most 100 people added to Square a day; past that, sign-ups are refused (the visitor is asked to email instead) or saved without Square, and the "Square" column says so;
+- at most 30 fields per sign-up and 40 columns per tab; once a tab is 40 columns wide, answers to further new fields are collected in one "More answers" column, so nothing is lost;
+- each answer is cut at 1,000 characters;
+- anything typed that starts like a spreadsheet formula is stored as plain text.
+
+These checks cannot prove that an email address belongs to the person who typed it. The "Wants email news" column is your record of what was ticked.
+
+#### Setting it up again from scratch
+
+Only needed if the Sheet is lost or you want it in a different Google account (about ten minutes).
+
+1. Create a Google Sheet, for example "Happy Brew website sign-ups".
 2. In the Sheet, open **Extensions → Apps Script**. Delete what is there, paste in the whole of `integrations/sign-ups.gs`, and save.
 3. Open **Project Settings → Script properties** and add:
    - `SQUARE_ACCESS_TOKEN`: an access token from the Square Developer Dashboard that can read and write customers. Leave it out and the script still fills the Sheet; it only skips Square.
    - `NOTIFY_EMAIL` (optional): an address to email each time someone signs up.
 4. Back in the editor, choose the function `testSetup` and press **Run**. Google asks you to approve the script the first time. A test row should appear in an "Art Club" tab, and the log says whether Square connected. Delete the test row.
 5. Press **Deploy → New deployment**, type **Web app**, "Execute as: Me", "Who has access: Anyone". Copy the web app URL (it ends in `/exec`).
-6. In `events/index.html`, find the form with `data-subject="Art Club sign-up"` and paste the URL into its `data-endpoint=""`.
+6. In `events/index.html`, find the form with `data-subject="Art Club sign-up"` and paste the URL into its `data-endpoint`.
+7. Fill in the form on the website once and check the row arrives. `testSetup` only proves the script can reach the Sheet and Square; it does not test the published address.
 
-Things to know:
+#### Changing the script
 
-- **Changing the script later:** after editing it, use **Deploy → Manage deployments → Edit → Version: New version**. Until you do, the old version keeps running.
-- **Square and the email list:** the script puts people in Square's customer directory, but Square does not let outside tools mark someone as subscribed to marketing email. Check how new people in the "Art Club" group appear under Marketing; if they show as not subscribed, set them to Subscribed in the Square Dashboard. The Sheet's "Wants email news" column is your record that they asked.
-- **Other forms:** the same script can take the other forms too. Add an entry to `FORMS` at the top of the script (the name must match the form's `data-subject`) and paste the same URL into that form's `data-endpoint`.
-- **The token is a password.** It belongs only in Script properties, never in this repository.
+Edit `integrations/sign-ups.gs` here, then paste the whole file into the Sheet's script editor (**Extensions → Apps Script**) and save. Then publish it: **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. Until you do that last step, the old version keeps running. Do not use "New deployment" for a change: that makes a second web address and the form would still be using the first.
+
+**The token is a password.** It belongs only in Script properties, never in this repository.
 
 ## Design notes
 
@@ -167,7 +199,7 @@ Things to know:
 
 ### After changing `styles.css` or `script.js`
 
-Browsers keep a copy of these two files for a while. So that returning visitors get the new version straight away, every page loads them as `styles.css?v=3` and `script.js?v=3`. When you change either file, find and replace `?v=3` with `?v=4` (and so on) across all HTML files. If you forget, nothing breaks: visitors simply see the old styling for up to ten minutes.
+Browsers keep a copy of these two files for a while. So that returning visitors get the new version straight away, every page loads them as `styles.css?v=4` and `script.js?v=4`. When you change either file, find and replace `?v=4` with `?v=5` (and so on) across all HTML files. If you forget, nothing breaks: visitors simply see the old styling for up to ten minutes.
 
 ## Going live
 
