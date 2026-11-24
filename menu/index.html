@@ -281,15 +281,16 @@
         <h2 id="news-signup-title">Hear the Happy News</h2>
         <p>Join the Happy Brew family! Get updates, pop-up event invites and inspiring stories, all served straight to your inbox.</p>
       </div>
-      <form class="form" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="" data-subject="Happy News sign-up" data-success="Thank you! We’ll add you to the Happy News email list.">
+      <form class="form" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="https://script.google.com/macros/s/AKfycbwreKRQeqfQppEnGMh3fG0B7Gv2VaNb56N3xH69wf3yQfTTA-ZUXjD4-MDXzcuJ2rkV/exec" data-subject="Happy News sign-up" data-success="Thank you! We’ll add you to the Happy News email list.">
         <div class="signup">
           <div class="field">
             <label for="news-email">Your email address</label>
-            <input id="news-email" name="email" type="email" autocomplete="email" required>
+            <input id="news-email" name="email" type="email" autocomplete="email" maxlength="200" required>
           </div>
           <button class="btn" type="submit">Sign me up</button>
         </div>
-        <input type="hidden" name="request" value="Please add me to the Happy News email list.">
+        <input type="hidden" name="_request" value="Please add me to the Happy News email list.">
+        <p class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>

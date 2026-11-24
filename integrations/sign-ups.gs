@@ -3,8 +3,9 @@
  * ---------------------------
  * A Google Apps Script that receives a form sent from the website and
  *   1. adds a row to this Google Sheet, and
- *   2. adds the person to the Square customer directory, in that form's
- *      customer group, but only if they ticked "send me news by email".
+ *   2. adds the person to the Square customer directory, but only if they
+ *      asked for email news: by ticking "send me news by email", or by
+ *      filling in a form that is itself a newsletter sign-up.
  *
  * It works for any form on the website:
  *   - Each form fills the tab of this Sheet that has the form's name (the
@@ -33,7 +34,12 @@
 
    "tab"         the Sheet tab to fill. The script creates it if it is missing.
    "squareGroup" the customer group in Square, so the café can email just
-                 these people (otherwise "Website sign-ups").
+                 these people (otherwise "Website sign-ups"). Use '' for no
+                 group: the person is still added to Square, and Square
+                 itself puts them in its "Email Subscribers" list.
+   "square"      'always' for a form that is itself a request for email news,
+                 so everyone who fills it in is added to Square. Left out,
+                 only people who tick a box named news_opt_in are added.
    "headings"    friendlier column headings, and the order of the columns in
                  a new tab. A field not listed here still gets saved, in a
                  column named after it (t_shirt_size becomes "T shirt size").
@@ -52,6 +58,14 @@ var FORMS = {
       party_size: 'How many',
       notes: 'Notes',
       news_opt_in: 'Wants email news'
+    }
+  },
+  'Happy News sign-up': {
+    tab: 'Happy News',
+    square: 'always',
+    squareGroup: '',
+    headings: {
+      email: 'Email'
     }
   }
 };
@@ -91,8 +105,9 @@ function doPost(e) {
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) return reply_({ ok: false, error: 'A valid email address is needed.' });
     }
 
-    var wantsNews = own_(data, 'news_opt_in') && data.news_opt_in === 'yes';
-    if (own_(data, 'news_opt_in')) data.news_opt_in = wantsNews ? 'Yes' : 'No';
+    var ticked = own_(data, 'news_opt_in') && data.news_opt_in === 'yes';
+    if (own_(data, 'news_opt_in')) data.news_opt_in = ticked ? 'Yes' : 'No';
+    var wantsNews = ticked || form.square === 'always';
 
     /* One sign-up at a time from here on, so two arriving together cannot
        trip over each other in the Sheet or in Square. */
@@ -109,7 +124,7 @@ function doPost(e) {
       else if (wantsNews && !token_()) square = 'Square not set up';
       else if (wantsNews && !spend_('square', MAX_SQUARE_PER_DAY)) square = 'Daily limit reached, not added to Square';
       else if (wantsNews) {
-        try { square = addToSquare_(data, subject, form.squareGroup || DEFAULT_SQUARE_GROUP); }
+        try { square = addToSquare_(data, subject, own_(form, 'squareGroup') ? form.squareGroup : DEFAULT_SQUARE_GROUP); }
         catch (error) { square = 'Could not add: ' + error.message; }
       }
 
@@ -313,7 +328,8 @@ function square_(method, path, body) {
   return json;
 }
 
-/* Find the person by email, or create them, then put them in the group. */
+/* Find the person by email, or create them, then put them in the group
+   (if the form has one). */
 function addToSquare_(data, subject, groupName) {
   if (!token_()) return 'Square not set up';
   var found = square_('post', '/customers/search', { limit: 1, query: { filter: { email_address: { exact: data.email } } } });
@@ -330,7 +346,7 @@ function addToSquare_(data, subject, groupName) {
     }).customer;
     result = 'Added to Square';
   }
-  square_('put', '/customers/' + customer.id + '/groups/' + groupId_(groupName));
+  if (groupName) square_('put', '/customers/' + customer.id + '/groups/' + groupId_(groupName));
   return result;
 }
 
