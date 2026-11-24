@@ -60,6 +60,20 @@ var FORMS = {
       news_opt_in: 'Wants email news'
     }
   },
+  'Run Club sign-up': {
+    tab: 'Run Club',
+    squareGroup: 'Run Club',
+    headings: {
+      session: 'Run Club date',
+      first_name: 'First name',
+      last_name: 'Last name',
+      email: 'Email',
+      phone: 'Phone',
+      party_size: 'How many',
+      notes: 'Notes',
+      news_opt_in: 'Wants email news'
+    }
+  },
   'Happy News sign-up': {
     tab: 'Happy News',
     square: 'always',

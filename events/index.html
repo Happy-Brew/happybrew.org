@@ -108,7 +108,7 @@
         <p>Come get in some Happy Miles! There’s both a 2 mile and a 5K loop, open to all abilities. You can run, you can walk, or you can wheel.</p>
         <p>Brew Buddies guide the way for anyone who may need a little extra help. Ainsley’s Angels will be there with their special running chairs, so if you want to take part but can’t walk, run or wheel yourself, you can be pushed by an Angel!</p>
         <p>Happens monthly, usually on the second Saturday. You can find us on Strava too.</p>
-        <p><a class="btn btn--small" href="../visit-us/?topic=Event%20RSVP&amp;message=I%E2%80%99d%20like%20to%20RSVP%20for%20Happy%20Brew%20Run%20Club%20on%20Saturday%2C%20December%2012%2C%202026.%20Number%20of%20people%3A%20#contact">RSVP for Run Club</a></p>
+        <p><a class="btn btn--small" href="#run-club-signup">RSVP for Run Club</a></p>
       </div>
       <img class="event__img event__img--contain" src="../assets/img/events/run-club-480.webp" srcset="../assets/img/events/run-club-480.webp 480w, ../assets/img/events/run-club-960.webp 960w" sizes="11rem" alt="Happy Brew Run Club logo." width="960" height="711" loading="lazy" decoding="async">
     </article>
@@ -158,6 +158,59 @@
       <div class="check">
         <input id="ac-news" name="news_opt_in" type="checkbox" value="yes">
         <label for="ac-news">Also send me Happy Brew news and events by email. <span class="hint">(optional)</span></label>
+      </div>
+      <p class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+      <div class="btn-row">
+        <button class="btn" type="submit">Sign me up</button>
+      </div>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<section class="band" id="run-club-signup" aria-labelledby="run-signup-title">
+  <div class="wrap wrap--narrow">
+    <div class="band-head">
+      <h2 id="run-signup-title">RSVP for Run Club</h2>
+      <p class="lede">Run, walk or wheel. Tell us who’s coming.</p>
+    </div>
+    <form class="form form--card" action="mailto:info@happybrew.org" method="post" enctype="text/plain" data-endpoint="https://script.google.com/macros/s/AKfycbwreKRQeqfQppEnGMh3fG0B7Gv2VaNb56N3xH69wf3yQfTTA-ZUXjD4-MDXzcuJ2rkV/exec" data-subject="Run Club sign-up" data-success="Thank you! You’re on the list for Run Club. See you there.">
+      <p class="form-note">Every field is required unless it says optional.</p>
+      <div class="field">
+        <label for="rc-session">Run Club date</label>
+        <input id="rc-session" name="session" type="text" value="Saturday, December 12, 2026" readonly data-copy-from="#run-club time" data-past-value="The next Run Club (date to be announced)">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="rc-first">First name</label>
+          <input id="rc-first" name="first_name" type="text" autocomplete="given-name" maxlength="100" required>
+        </div>
+        <div class="field">
+          <label for="rc-last">Last name</label>
+          <input id="rc-last" name="last_name" type="text" autocomplete="family-name" maxlength="100" required>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="rc-email">Email</label>
+          <input id="rc-email" name="email" type="email" autocomplete="email" maxlength="200" required>
+        </div>
+        <div class="field">
+          <label for="rc-phone">Phone <span class="hint">(optional)</span></label>
+          <input id="rc-phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+        </div>
+      </div>
+      <div class="field">
+        <label for="rc-size">How many people are coming?</label>
+        <input id="rc-size" name="party_size" type="number" min="1" max="20" value="1" inputmode="numeric" required>
+      </div>
+      <div class="field">
+        <label for="rc-notes">Anything we should know? <span class="hint">(optional, for example if you’d like a Brew Buddy or a running chair)</span></label>
+        <textarea id="rc-notes" name="notes" rows="3" maxlength="1000"></textarea>
+      </div>
+      <div class="check">
+        <input id="rc-news" name="news_opt_in" type="checkbox" value="yes">
+        <label for="rc-news">Also send me Happy Brew news and events by email. <span class="hint">(optional)</span></label>
       </div>
       <p class="hp" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
       <div class="btn-row">

@@ -93,9 +93,9 @@ Edit `events/index.html`. Each event is an `<article class="event">` block. For 
 
 `data-event-date` must be `YYYY-MM-DD`. When that date has passed, the Events page greys the date badge and adds "This date has passed" automatically, and the home page hides the event, so a stale date never looks current. The home page shows the next two events in shorter form; update `index.html` too.
 
-The Art Club sign-up form further down the page shows the Art Club date automatically, copied from the Art Club block, so there is nothing extra to change there.
+The Art Club and Run Club sign-up forms further down the page show their dates automatically, copied from the Art Club and Run Club blocks, so there is nothing extra to change there.
 
-The Run Club button links to the contact form with a message already started. If you change the event date, update the date inside that link as well (search for `RSVP%20for`).
+The Art Club and Run Club buttons jump to those forms. An event without a form of its own can link to the contact form with a message already started, like this: `../visit-us/?topic=Event%20RSVP&message=...#contact`.
 
 ### Blog posts (Happy News)
 
@@ -118,12 +118,12 @@ Photos live in `assets/img/`. Most come in two sizes, for example `crew-lift-720
 
 ## Forms
 
-There are four forms: the newsletter sign-up in the footer of every page, the contact form on `visit-us/`, the room request form on `room-request/`, and the Art Club sign-up on `events/`.
+There are five forms: the newsletter sign-up in the footer of every page, the contact form on `visit-us/`, the room request form on `room-request/`, and the Art Club and Run Club sign-ups on `events/`.
 
 Each `<form>` tag has `data-endpoint=""`.
 
 - **While it is empty**, submitting the form opens the visitor's email app with a message to `info@happybrew.org` already filled in. That is how the contact and room request forms work today.
-- **The Art Club form and the newsletter sign-up are connected** to a Google Sheet and Square (see the next section). The other forms can be sent to the same Sheet.
+- **The Art Club and Run Club forms and the newsletter sign-up are connected** to a Google Sheet and Square (see the next section). The other forms can be sent to the same Sheet.
 - **To have a form send somewhere else**, create a form at [Formspree](https://formspree.io/) and paste its URL in:
 
 ```html
@@ -134,9 +134,9 @@ Do this for each form you want connected. The newsletter form is in the footer o
 
 ### Sign-ups: Google Sheet and Square
 
-Two forms send to a small script that lives inside a Google Sheet: the Art Club form on `events/` and the Happy News (newsletter) sign-up in the footer of every page. The script is in this repository at `integrations/sign-ups.gs`. For every sign-up it adds a row to the Sheet, on that form's tab, and optionally emails the café. It also adds people to the Square customer directory when they have asked for email news:
+Three forms send to a small script that lives inside a Google Sheet: the Art Club and Run Club forms on `events/` and the Happy News (newsletter) sign-up in the footer of every page. The script is in this repository at `integrations/sign-ups.gs`. For every sign-up it adds a row to the Sheet, on that form's tab, and optionally emails the café. It also adds people to the Square customer directory when they have asked for email news:
 
-- **Art Club** ("Art Club" tab): only people who tick "send me Happy Brew news". They go into a Square customer group called "Art Club", so the café can email just that group.
+- **Art Club** ("Art Club" tab) and **Run Club** ("Run Club" tab): only people who tick "send me Happy Brew news". They go into a Square customer group called "Art Club" or "Run Club", so the café can email just that group.
 - **Happy News** ("Happy News" tab): everyone, because filling in that form is the request. They are not put in a group of their own.
 
 Either way, Square itself puts anyone added with an email address into its "Email Subscribers" list, which is the list the newsletter goes to. This was checked on the real account on 24 November 2026.
@@ -150,7 +150,7 @@ The copy of the script in this repository is the reference copy. The one that ru
 - **Fields.** Every field a form sends gets its own column, added the first time that field arrives. Add a field to a form in the HTML and a new column appears with the next sign-up, named after the field (`t_shirt_size` becomes "T shirt size"). Remove a field and its column simply stays empty from then on.
 - **Other forms.** To save another form in the same Sheet, do two things. Add an empty tab to the Sheet with exactly the form's name (its `data-subject` in the HTML, for example `Room request`). Then paste the same web address into that form's `data-endpoint`. The script itself does not change. A form with no tab of its name is refused; that is what stops strangers creating tabs.
 - **Email news.** In any form, a tick box named `news_opt_in` with the value `yes` adds the person to Square (to the "Website sign-ups" group unless the script names another for that form). A form with a field named `email` must be given a real-looking address.
-- **Optional extras.** The `FORMS` list at the top of the script gives a form friendlier column headings, its own Square group (or none), a tab the script creates by itself, and `square: 'always'` for a form that is itself a newsletter sign-up. Art Club and Happy News are listed there. Other forms work without being listed.
+- **Optional extras.** The `FORMS` list at the top of the script gives a form friendlier column headings, its own Square group (or none), a tab the script creates by itself, and `square: 'always'` for a form that is itself a newsletter sign-up. Art Club, Run Club and Happy News are listed there. Other forms work without being listed.
 - **Fields the Sheet does not need.** A field whose name starts with an underscore, such as `_request`, is not saved.
 
 #### Working in the Sheet
