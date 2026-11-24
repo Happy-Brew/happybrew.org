@@ -136,7 +136,7 @@ Do this for each form you want connected. The newsletter form is in the footer o
 The Art Club form on `events/` is built to send to a small script that lives inside a Google Sheet you own. The script is in this repository at `integrations/sign-ups.gs`. For every sign-up it:
 
 - adds a row to the Sheet (always);
-- adds the person to the Square customer directory, in a group called "Website sign-ups", but only if they ticked "send me Happy Brew news";
+- adds the person to the Square customer directory, in a customer group called "Art Club", but only if they ticked "send me Happy Brew news" (so the café can email just that group);
 - optionally emails the café.
 
 To set it up (about ten minutes, once):
@@ -153,7 +153,7 @@ To set it up (about ten minutes, once):
 Things to know:
 
 - **Changing the script later:** after editing it, use **Deploy → Manage deployments → Edit → Version: New version**. Until you do, the old version keeps running.
-- **Square and the email list:** the script puts people in Square's customer directory, but Square does not let outside tools mark someone as subscribed to marketing email. Check how new people in the "Website sign-ups" group appear under Marketing; if they show as not subscribed, set them to Subscribed in the Square Dashboard. The Sheet's "Wants email news" column is your record that they asked.
+- **Square and the email list:** the script puts people in Square's customer directory, but Square does not let outside tools mark someone as subscribed to marketing email. Check how new people in the "Art Club" group appear under Marketing; if they show as not subscribed, set them to Subscribed in the Square Dashboard. The Sheet's "Wants email news" column is your record that they asked.
 - **Other forms:** the same script can take the other forms too. Add an entry to `FORMS` at the top of the script (the name must match the form's `data-subject`) and paste the same URL into that form's `data-endpoint`.
 - **The token is a password.** It belongs only in Script properties, never in this repository.
 

@@ -3,8 +3,8 @@
  * ---------------------------
  * A Google Apps Script that receives a form sent from the website and
  *   1. adds a row to this Google Sheet (always), and
- *   2. adds the person to the Square customer directory, in the group named
- *      below, but only if they ticked "send me news by email".
+ *   2. adds the person to the Square customer directory, in that form's
+ *      customer group, but only if they ticked "send me news by email".
  *
  * It lives inside a Google Sheet (Extensions > Apps Script). Setup steps are
  * in the website README under "Art Club sign-ups".
@@ -16,10 +16,12 @@
 
 /* One entry per website form. The name on the left is the form's
    data-subject in the HTML. "columns" pairs each form field with the
-   heading it gets in the Sheet. */
+   heading it gets in the Sheet. "squareGroup" is the customer group in
+   Square, so the café can email just these people. */
 var FORMS = {
   'Art Club sign-up': {
     tab: 'Art Club',
+    squareGroup: 'Art Club',
     columns: [
       ['session', 'Art Club date'],
       ['first_name', 'First name'],
@@ -33,7 +35,7 @@ var FORMS = {
   }
 };
 
-var SQUARE_GROUP = 'Website sign-ups';   /* customer group in Square */
+var DEFAULT_SQUARE_GROUP = 'Website sign-ups';   /* used when a form names no group */
 var SQUARE_VERSION = '2025-05-21';
 var SQUARE_URL = 'https://connect.squareup.com/v2';
 
@@ -58,7 +60,7 @@ function doPost(e) {
     /* Square first, so the Sheet row can record what happened there. */
     var square = 'Not asked for';
     if (wantsNews) {
-      try { square = addToSquare_(data, subject); }
+      try { square = addToSquare_(data, subject, form.squareGroup || DEFAULT_SQUARE_GROUP); }
       catch (error) { square = 'Could not add: ' + error.message; }
     }
 
@@ -145,7 +147,7 @@ function square_(method, path, body) {
 }
 
 /* Find the person by email, or create them, then put them in the group. */
-function addToSquare_(data, subject) {
+function addToSquare_(data, subject, groupName) {
   if (!token_()) return 'Square not set up';
   var found = square_('post', '/customers/search', { limit: 1, query: { filter: { email_address: { exact: data.email } } } });
   var customer = found.customers && found.customers[0];
@@ -161,19 +163,20 @@ function addToSquare_(data, subject) {
     }).customer;
     result = 'Added to Square';
   }
-  square_('put', '/customers/' + customer.id + '/groups/' + groupId_());
+  square_('put', '/customers/' + customer.id + '/groups/' + groupId_(groupName));
   return result;
 }
 
 /* The group's id, looked up (or created) once and then remembered. */
-function groupId_() {
+function groupId_(name) {
   var props = PropertiesService.getScriptProperties();
-  var id = props.getProperty('SQUARE_GROUP_ID');
+  var key = 'SQUARE_GROUP_ID: ' + name;
+  var id = props.getProperty(key);
   if (id) return id;
   var groups = square_('get', '/customers/groups').groups || [];
-  var match = groups.filter(function (group) { return group.name === SQUARE_GROUP; })[0];
-  if (!match) match = square_('post', '/customers/groups', { idempotency_key: Utilities.getUuid(), group: { name: SQUARE_GROUP } }).group;
-  props.setProperty('SQUARE_GROUP_ID', match.id);
+  var match = groups.filter(function (group) { return group.name === name; })[0];
+  if (!match) match = square_('post', '/customers/groups', { idempotency_key: Utilities.getUuid(), group: { name: name } }).group;
+  props.setProperty(key, match.id);
   return match.id;
 }
 
