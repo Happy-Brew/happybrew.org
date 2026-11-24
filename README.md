@@ -31,7 +31,7 @@ A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.
 | `styles.css` | All styling. Colours and sizes are at the top under `:root`. |
 | `script.js` | Mobile menu, "open now" badge, forms, old-link forwarding |
 | `assets/` | Images, fonts, favicon, sharing image, menu PDF |
-| `integrations/sign-ups.gs` | Script that runs inside a Google Sheet and receives website forms, starting with the Art Club sign-up (see [Forms](#forms)) |
+| `integrations/sign-ups.gs` | Script that runs inside a Google Sheet and receives website forms: Art Club and the newsletter sign-up (see [Forms](#forms)). The two small files beside it are for publishing it with `clasp` |
 
 Page addresses match the old Wix site (`/about-us`, `/the-crew`, `/room-request` and so on) so existing links keep working.
 
@@ -187,7 +187,20 @@ Only needed if the Sheet is lost or you want it in a different Google account (a
 
 #### Changing the script
 
-Edit `integrations/sign-ups.gs` here, then paste the whole file into the Sheet's script editor (**Extensions → Apps Script**) and save. Then publish it: **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. Until you do that last step, the old version keeps running. Do not use "New deployment" for a change: that makes a second web address and the form would still be using the first.
+Edit `integrations/sign-ups.gs` here, then publish it. Until it is published, the old version keeps running.
+
+**With `clasp`, Google's command-line tool (recommended).** One-time setup: install it (`npm install -g @google/clasp`, or `mise use -g npm:@google/clasp`), switch on the Apps Script API at <https://script.google.com/home/usersettings>, and run `clasp login` as the Google account that owns the Sheet. Then, from the `integrations` folder:
+
+```
+clasp push
+clasp update-deployment AKfycbwreKRQeqfQppEnGMh3fG0B7Gv2VaNb56N3xH69wf3yQfTTA-ZUXjD4-MDXzcuJ2rkV
+```
+
+The first command uploads the script; the second publishes it as a new version at the same web address. `integrations/.clasp.json` tells clasp which script project this is, and `integrations/appsscript.json` holds the project's settings (time zone, and that the web app runs as the owner and is open to anyone).
+
+**By hand.** Paste the whole file into the Sheet's script editor (**Extensions → Apps Script**) and save. Then **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. Do not use "New deployment" for a change: that makes a second web address and the form would still be using the first.
+
+**Afterwards, either way**, open the web address in a browser. It should say "The Happy Brew sign-up script is running." An error page means the script has a mistake in it; publish a corrected version straight away, because the forms on the site do not send while it is broken.
 
 **The token is a password.** It belongs only in Script properties, never in this repository.
 
