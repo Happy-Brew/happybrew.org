@@ -124,6 +124,16 @@
       var meta = card.querySelector('.event__meta');
       if (meta) meta.insertAdjacentHTML('beforeend', ' <span>(This date has passed. Check Instagram or call us for the next one.)</span>');
     });
+
+    /* Sign-up forms: show the date of the event they belong to */
+    document.querySelectorAll('input[data-copy-from]').forEach(function (input) {
+      var source = document.querySelector(input.getAttribute('data-copy-from'));
+      if (!source) return;
+      var card = source.closest('.event');
+      var badge = card && card.querySelector('[data-event-date]');
+      var past = badge && badge.getAttribute('data-event-date') < today;
+      input.defaultValue = past ? (input.getAttribute('data-past-value') || '') : source.textContent.trim();
+    });
   })();
 
   /* ---------- Forms ----------
@@ -180,6 +190,11 @@
       fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
         .then(function (response) {
           if (!response.ok) throw new Error('Request failed');
+          return response.json().catch(function () { return {}; });
+        })
+        .then(function (result) {
+          /* Some services always answer "200 OK" and report a problem in the reply itself */
+          if (result && result.ok === false) throw new Error('Request refused');
           form.reset();
           showStatus(form, success, 'success');
         })

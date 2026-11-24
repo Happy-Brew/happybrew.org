@@ -31,6 +31,7 @@ A plain HTML, CSS and JavaScript website for [Happy Brew](https://www.happybrew.
 | `styles.css` | All styling. Colours and sizes are at the top under `:root`. |
 | `script.js` | Mobile menu, "open now" badge, forms, old-link forwarding |
 | `assets/` | Images, fonts, favicon, sharing image, menu PDF |
+| `integrations/sign-ups.gs` | Script for a Google Sheet that receives the Art Club sign-up form (see [Forms](#forms)) |
 
 Page addresses match the old Wix site (`/about-us`, `/the-crew`, `/room-request` and so on) so existing links keep working.
 
@@ -92,6 +93,8 @@ Edit `events/index.html`. Each event is an `<article class="event">` block. For 
 
 `data-event-date` must be `YYYY-MM-DD`. When that date has passed, the Events page greys the date badge and adds "This date has passed" automatically, and the home page hides the event, so a stale date never looks current. The home page shows the next two events in shorter form; update `index.html` too.
 
+The Art Club sign-up form further down the page shows the Art Club date automatically, copied from the Art Club block, so there is nothing extra to change there.
+
 The Run Club button links to the contact form with a message already started. If you change the event date, update the date inside that link as well (search for `RSVP%20for`).
 
 ### Blog posts (Happy News)
@@ -115,7 +118,7 @@ Photos live in `assets/img/`. Most come in two sizes, for example `crew-lift-720
 
 ## Forms
 
-There are three kinds of form: the newsletter sign-up in the footer of every page, the contact form on `visit-us/`, and the room request form on `room-request/`.
+There are four forms: the newsletter sign-up in the footer of every page, the contact form on `visit-us/`, the room request form on `room-request/`, and the Art Club sign-up on `events/`.
 
 Each `<form>` tag has `data-endpoint=""`.
 
@@ -128,6 +131,32 @@ Each `<form>` tag has `data-endpoint=""`.
 
 Do this for each form you want connected. The newsletter form is in the footer of every HTML file, so use find and replace for that one. You can use one Formspree form for everything or a separate one per form.
 
+### Art Club sign-ups: Google Sheet and Square
+
+The Art Club form on `events/` is built to send to a small script that lives inside a Google Sheet you own. The script is in this repository at `integrations/sign-ups.gs`. For every sign-up it:
+
+- adds a row to the Sheet (always);
+- adds the person to the Square customer directory, in a group called "Website sign-ups", but only if they ticked "send me Happy Brew news";
+- optionally emails the café.
+
+To set it up (about ten minutes, once):
+
+1. In the café's Google account, create a Google Sheet, for example "Happy Brew website sign-ups".
+2. In the Sheet, open **Extensions → Apps Script**. Delete what is there, paste in the whole of `integrations/sign-ups.gs`, and save.
+3. Open **Project Settings → Script properties** and add:
+   - `SQUARE_ACCESS_TOKEN`: an access token from the Square Developer Dashboard that can read and write customers. Leave it out and the script still fills the Sheet; it only skips Square.
+   - `NOTIFY_EMAIL` (optional): an address to email each time someone signs up.
+4. Back in the editor, choose the function `testSetup` and press **Run**. Google asks you to approve the script the first time. A test row should appear in an "Art Club" tab, and the log says whether Square connected. Delete the test row.
+5. Press **Deploy → New deployment**, type **Web app**, "Execute as: Me", "Who has access: Anyone". Copy the web app URL (it ends in `/exec`).
+6. In `events/index.html`, find the form with `data-subject="Art Club sign-up"` and paste the URL into its `data-endpoint=""`.
+
+Things to know:
+
+- **Changing the script later:** after editing it, use **Deploy → Manage deployments → Edit → Version: New version**. Until you do, the old version keeps running.
+- **Square and the email list:** the script puts people in Square's customer directory, but Square does not let outside tools mark someone as subscribed to marketing email. Check how new people in the "Website sign-ups" group appear under Marketing; if they show as not subscribed, set them to Subscribed in the Square Dashboard. The Sheet's "Wants email news" column is your record that they asked.
+- **Other forms:** the same script can take the other forms too. Add an entry to `FORMS` at the top of the script (the name must match the form's `data-subject`) and paste the same URL into that form's `data-endpoint`.
+- **The token is a password.** It belongs only in Script properties, never in this repository.
+
 ## Design notes
 
 - **Colours** come from the Happy Brew logo and crew shirts: sunflower `#fab300`, navy `#0d3256`, cream `#fffaf0`. Change them once at the top of `styles.css`.
@@ -138,7 +167,7 @@ Do this for each form you want connected. The newsletter form is in the footer o
 
 ### After changing `styles.css` or `script.js`
 
-Browsers keep a copy of these two files for a while. So that returning visitors get the new version straight away, every page loads them as `styles.css?v=2` and `script.js?v=2`. When you change either file, find and replace `?v=2` with `?v=3` (and so on) across all HTML files. If you forget, nothing breaks: visitors simply see the old styling for up to ten minutes.
+Browsers keep a copy of these two files for a while. So that returning visitors get the new version straight away, every page loads them as `styles.css?v=3` and `script.js?v=3`. When you change either file, find and replace `?v=3` with `?v=4` (and so on) across all HTML files. If you forget, nothing breaks: visitors simply see the old styling for up to ten minutes.
 
 ## Going live
 
