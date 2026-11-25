@@ -120,7 +120,7 @@ Photos live in `assets/img/`. Most come in two sizes, for example `crew-lift-720
 
 There are five forms: the newsletter sign-up in the footer of every page, the contact form on `visit-us/`, the room request form on `room-request/`, and the Art Club and Run Club sign-ups on `events/`.
 
-Each `<form>` tag has `data-endpoint=""`.
+Each `<form>` tag has a `data-endpoint`, which is either empty or holds a web address.
 
 - **While it is empty**, submitting the form opens the visitor's email app with a message to `info@happybrew.org` already filled in. That is how the contact and room request forms work today.
 - **The Art Club and Run Club forms and the newsletter sign-up are connected** to a Google Sheet and Square (see the next section). The other forms can be sent to the same Sheet.
@@ -141,7 +141,7 @@ Three forms send to a small script that lives inside a Google Sheet: the Art Clu
 
 Either way, Square itself puts anyone added with an email address into its "Email Subscribers" list, which is the list the newsletter goes to. This was checked on the real account on 24 November 2026.
 
-**This is already set up.** The Sheet is called "Happy Brew website sign-ups". The script was pasted into it and published on 24 November 2026, and both forms' `data-endpoint` hold its web address.
+**This is already set up.** The Sheet is called "Happy Brew website sign-ups". The script was pasted into it and published on 24 November 2026, and the `data-endpoint` of all three forms holds its web address.
 
 The copy of the script in this repository is the reference copy. The one that runs is the one inside the Sheet. If you change one, change the other (see "Changing the script" below).
 
@@ -224,7 +224,7 @@ When this replaces the Wix site at happybrew.org:
 2. Replace `https://preview.happybrew.org/` with `https://www.happybrew.org/` in every HTML file and in `sitemap.xml` (it appears in the canonical link, the sharing tags and the JSON-LD blocks).
 3. In the footer of every HTML file, delete the sentence that begins "This is a preview of a proposed new website".
 4. Change the custom domain in the repository's Settings → Pages from `preview.happybrew.org` to `www.happybrew.org` (this rewrites the `CNAME` file), and point that domain's DNS at GitHub Pages (`happy-brew.github.io`).
-5. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working. The newsletter form only emails the address to the café; connect it to your email list tool if you want sign-ups added automatically.
+5. Connect the forms (see [Forms](#forms)) before switching the domain, because the Wix forms will stop working. The newsletter, Art Club and Run Club forms are already connected; the contact and room request forms are not.
 6. Submit `https://www.happybrew.org/sitemap.xml` in Google Search Console.
 7. Check that the donation service still sends donors to `/thankyouforyourgenerosity`.
 
