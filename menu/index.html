@@ -28,6 +28,13 @@
 <link rel="preload" href="../assets/fonts/atkinson-hyperlegible-next-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../styles.css?v=4">
 <script>document.documentElement.className += ' js';</script>
+<style>
+#main .board {border-radius: 1.25rem; overflow-wrap: anywhere;}
+#main .jump a {border-radius: 2rem;}
+#main .menu-group:has(.board__note) h3 {color:#0d3256;}
+#main .menu-group:has(.board__note) {border-top: 4px solid #f4c84b; padding-top: .85rem;}
+#main .page-hero h1 {letter-spacing:-.025em;}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -51,8 +58,8 @@
   <div class="wrap page-hero__grid page-hero__grid--photo">
     <div>
       <p class="eyebrow">Food &amp; drink</p>
-      <h1>Made with care by the Brew Crew.</h1>
-      <p class="lede">We believe a great cup of coffee is the start to great conversations. Here’s everything we pour, bake and scoop.</p>
+      <h1>A little sip of happy.</h1>
+      <p class="lede">Good coffee, delicious bites and a warm welcome. Made with care by the Brew Crew.</p>
       <div class="btn-row" style="margin-top: 1.5rem">
         <a class="btn" href="../assets/happy-brew-menu.pdf">Download the menu (PDF)</a>
         <a class="arrow-link" href="https://app.squareup.com/gift/ML5ZZYCZG2Z96/order">Send an eGift card</a>
@@ -78,7 +85,7 @@
       </ul>
     </nav>
     <div class="band-head">
-      <h2 id="drinks-title">Drinks</h2>
+      <h2 id="drinks-title">Sip happy.</h2>
       <p>Where you see two prices, the first is regular and the second is large.</p>
     </div>
 
@@ -123,13 +130,13 @@
             </ul>
           </div>
           <div class="menu-group">
-            <h3>Seasonal specials <span class="todo-chip">TODO: update for this season</span></h3>
-            <p class="board__note">These are from our spring menu.</p>
+            <h3>Christmas specials</h3>
+            <p class="board__note">A little Christmas joy in every sip.</p>
             <ul class="prices">
-              <li><span class="row"><span class="item">Lavender crème latte</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span></li>
-              <li><span class="row"><span class="item">Berry cold brew with cold foam</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span></li>
-              <li><span class="row"><span class="item">904 Pink Punch</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span></li>
-              <li><span class="row"><span class="item">Red cappuccino</span><span class="price"><span class="vh">Regular </span>$5 <span aria-hidden="true">/</span><span class="vh"> large</span> $6</span></span></li>
+              <li><span class="row"><span class="item">Peppermint Mocha</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span></li>
+              <li><span class="row"><span class="item">Santa’s Cookies Cold Brew</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span></li>
+              <li><span class="row"><span class="item">Eggnog Latte</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span></li>
+              <li><span class="row"><span class="item">Gingerbread Matcha</span><span class="price"><span class="vh">Regular </span>$6 <span aria-hidden="true">/</span><span class="vh"> large</span> $7</span></span></li>
             </ul>
           </div>
         </div>
@@ -152,9 +159,9 @@
             <li>Coconut</li>
             <li>Cherry</li>
             <li>Hazelnut</li>
-            <li>Honey</li>
+            <li>Gingerbread</li>
             <li>Lavender</li>
-            <li>Mint</li>
+            <li>Peppermint</li>
             <li>Strawberry</li>
             <li>Toasted marshmallow</li>
             <li>French vanilla</li>
@@ -176,7 +183,7 @@
 <section class="band band--paper" aria-labelledby="food-title">
   <div class="wrap">
     <div class="band-head">
-      <h2 id="food-title">Food</h2>
+      <h2 id="food-title">Bite happy.</h2>
       <p><span class="gf" aria-hidden="true">GF</span> marks our gluten-free bakes.</p>
     </div>
 
@@ -186,15 +193,15 @@
           <div class="menu-group">
             <h3 id="pastries">Pastries</h3>
             <ul class="prices">
-              <li><span class="row"><span class="item"><span class="gf" aria-hidden="true">GF</span>Blackberry chocolate chip muffin <span class="vh">(gluten-free)</span></span><span class="price">$5.50</span></span></li>
+              <li><span class="row"><span class="item"><span class="gf" aria-hidden="true">GF</span>Blackberry pumpkin chocolate chip muffin <span class="vh">(gluten-free)</span></span><span class="price">$5.50</span></span></li>
               <li><span class="row"><span class="item"><span class="gf" aria-hidden="true">GF</span>Blueberry muffin <span class="vh">(gluten-free)</span></span><span class="price">$5.50</span></span></li>
               <li><span class="row"><span class="item">Banana chocolate chip muffin</span><span class="price">$5.50</span></span></li>
-              <li><span class="row"><span class="item"><span class="gf" aria-hidden="true">GF</span>Raspberry lemon muffin <span class="vh">(gluten-free)</span></span><span class="price">$5.50</span></span></li>
+              <li><span class="row"><span class="item">Maple pecan scone</span><span class="price">$6</span></span></li>
               <li><span class="row"><span class="item">Chocolate croissant</span><span class="price">$5.25</span></span></li>
               <li><span class="row"><span class="item"><span class="gf" aria-hidden="true">GF</span>Espresso brownie <span class="vh">(gluten-free)</span></span><span class="price">$6</span></span></li>
               <li><span class="row"><span class="item">Bagel</span><span class="price">$5</span></span><span class="desc">With cream cheese or butter</span></li>
               <li><span class="row"><span class="item">Beignets</span><span class="price">3 for $5</span></span><span class="desc">Chocolate filled</span></li>
-              <li><span class="row"><span class="item">Zucchini loaf bread</span><span class="price">$4</span></span></li>
+              <li><span class="row"><span class="item">Butter croissant</span><span class="price">$5</span></span><span class="desc">With butter or jelly</span></li>
             </ul>
           </div>
         </div>
@@ -204,7 +211,8 @@
             <ul class="prices">
               <li><span class="row"><span class="item">Breakfast sandwich</span><span class="price">$6</span></span><span class="desc">Bacon, egg &amp; cheese croissant · Sausage, egg &amp; cheese bagel · Chicken sausage &amp; gouda on brioche</span></li>
               <li><span class="row"><span class="item">Lunch wrap</span><span class="price">$10</span></span><span class="desc">Chicken Caesar or turkey club</span></li>
-              <li><span class="row"><span class="item">Cheese snack box</span><span class="price">$6</span></span></li>
+              <li><span class="row"><span class="item">Cheese snack box</span><span class="price">$4 / $6</span></span></li>
+              <li><span class="row"><span class="item">Chicken salad croissant sandwich</span><span class="price">$10</span></span></li>
               <li><span class="row"><span class="item">Quiche</span><span class="price">$8</span></span><span class="desc">Vegetable</span></li>
             </ul>
           </div>
@@ -229,21 +237,20 @@
             <li><span class="row"><span class="item">Affogato</span><span class="price">$7</span></span><span class="desc">Soft serve + espresso</span></li>
             <li><span class="row"><span class="item">Chai &amp; cream</span><span class="price">$7</span></span><span class="desc">Soft serve + chai</span></li>
             <li><span class="row"><span class="item">Milkshakes</span><span class="price">$8</span></span><span class="desc">Vanilla, chocolate, caramel, cookies n cream, strawberry, mango or pineapple</span></li>
-            <li><span class="row"><span class="item">“Coooold” Brew Milkshake</span><span class="price">$8</span></span></li>
           </ul>
         </div>
         <div class="menu-group" style="margin-top: 0">
-          <h3 id="made-by-friends">Made by friends</h3>
+          <h3 id="made-by-friends">Made with talent. Served with joy.</h3>
           <p class="board__note">Treats from all-ability bakers and partners.</p>
           <ul class="prices">
             <li><span class="row"><span class="item">Caleb’s Cookies</span><span class="price">2 for $4</span></span><span class="desc">Gourmet cookies founded and made by Caleb Prewitt.</span></li>
             <li><span class="row"><span class="item">Crispy King rice krispies</span><span class="price">$5</span></span><span class="desc">Gourmet rice krispy treats made by and for Kings of all abilities.</span></li>
-            <li><span class="row"><span class="item">Alecx’s Bundt Cakes</span><span class="price">$6.50</span></span><span class="desc">Every delicious bite showcases Alecx’s passion and creativity.</span></li>
-            <li><span class="row"><span class="item">Pine Castle biscuit</span><span class="price">$5</span></span><span class="desc">Assorted flavors, with butter and Sweet Heat jelly on the side.</span></li>
+            <li><span class="row"><span class="item">Alecx’s Bundt Cakes</span><span class="price">$7</span></span><span class="desc">Every delicious bite showcases Alecx’s passion and creativity.</span></li>
           </ul>
         </div>
       </div>
     </div>
+    <p><strong>Happy Brew loyalty program:</strong> Sign up at the counter!</p><p><strong>Happy Brew merch:</strong> Check it out in the shop and <a href="https://happybrew.itemorder.com/shop/home/">online</a>.</p>
     <p style="margin-top: 1.5rem">Menu and prices can change. Have an allergy or a question? Ask any of us at the counter or call <a href="tel:+19045754940">904.575.4940</a>.</p>
   </div>
 </section>
